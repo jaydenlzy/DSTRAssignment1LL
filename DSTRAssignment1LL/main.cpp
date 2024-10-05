@@ -1,4 +1,4 @@
-#include "LinkedList.hpp"
+#include "LinkedList.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -71,44 +71,14 @@ void readCSV(LinkedList& list, const std::string& filename) {
         std::cerr << "Unable to open file" << std::endl;
     }
 }
-
-// Function to read words from TXT files and store them into a WordLinkedList
-void readWords(WordLinkedList& list, const std::string& filename) {
-    std::ifstream file(filename);
-    std::string word;
-
-    if (file.is_open()) {
-        while (file >> word) { // Read word by word
-            list.addWord(word);
-        }
-        file.close();
-    }
-    else {
-        std::cerr << "Unable to open file: " << filename << std::endl;
-    }
-}
-
 int main() {
-    LinkedList reviewList;
-    WordLinkedList positiveWordList;
-    WordLinkedList negativeWordList;
+    LinkedList list;
 
     // Read hotel reviews from the CSV file
-    readCSV(reviewList, "tripadvisor_hotel_reviews.csv");
-
-    // Read positive and negative words from TXT files
-    readWords(positiveWordList, "positive-words.txt");
-    readWords(negativeWordList, "negative-words.txt");
+    readCSV(list, "tripadvisor_hotel_reviews.csv");
 
     // Testing: Print reviews and ratings
-    reviewList.printReviews();
-
-    // Testing: Print positive and negative words
-    std::cout << "\nPositive Words:" << std::endl;
-    positiveWordList.printWords();
-
-    std::cout << "\nNegative Words:" << std::endl;
-    negativeWordList.printWords();
+    list.printReviews();
 
     return 0;
 }
