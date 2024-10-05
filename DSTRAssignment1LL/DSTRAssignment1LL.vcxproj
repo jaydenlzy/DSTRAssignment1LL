@@ -127,11 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LinkedList.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt" />
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt" />
   </ItemGroup>
@@ -139,7 +134,11 @@
     <None Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\tripadvisor_hotel_reviews.csv" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="LinkedList.hpp" />
+=======
+    <ClCompile Include="MainMenu.cpp" />
+>>>>>>> b6313e20692d3fdd530b0bb6a0b09a6e74b06cd1
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
