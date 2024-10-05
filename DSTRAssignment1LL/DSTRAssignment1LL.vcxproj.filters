@@ -39,8 +39,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkedList.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="LinkedList.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
