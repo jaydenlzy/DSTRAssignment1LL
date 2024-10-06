@@ -4,8 +4,7 @@
 void displayMenu() {
     std::cout << "\nMenu:\n";
     std::cout << "1. Show Reviews and Ratings\n";
-    std::cout << "2. Show Positive Words\n";
-    std::cout << "3. Show Negative Words\n";
+    std::cout << "2. Analyze Sentiment of Reviews using binary search (Positive and Negative Word Count)\n";
     std::cout << "4. Exit\n";
     std::cout << "Enter your choice: ";
 }
@@ -39,14 +38,8 @@ int main() {
             showReviewAndRating(reviewHead);
             break;
         case 2:
-            // Display positive words
-            std::cout << "Positive Words:\n";
-            showWords(positiveWordsHead);
-            break;
-        case 3:
-            // Display negative words
-            std::cout << "Negative Words:\n";
-            showWords(negativeWordsHead);
+            // Perform sentiment analysis (positive and negative word count for each review)
+            option2DisplaySentiment(reviewHead, positiveWordsHead, negativeWordsHead);
             break;
         case 4:
             // Exit the program
