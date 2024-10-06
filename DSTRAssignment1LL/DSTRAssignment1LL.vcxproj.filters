@@ -34,9 +34,15 @@
     <ClCompile Include="hotel_reviews.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sentimentcalculation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hotel_reviews.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sentimentcalculation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

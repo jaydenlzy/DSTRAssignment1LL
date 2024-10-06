@@ -136,9 +136,11 @@
   <ItemGroup>
     <ClCompile Include="hotel_reviews.cpp" />
     <ClCompile Include="main_menu.cpp" />
+    <ClCompile Include="sentimentcalculation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hotel_reviews.h" />
+    <ClInclude Include="sentimentcalculation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
