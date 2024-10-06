@@ -5,11 +5,8 @@
 void displayMenu() {
     std::cout << "\nMenu:\n";
     std::cout << "1. Show Reviews and Ratings\n";
-    std::cout << "2. Linear Search Sentiment Analysis\n";
-    std::cout << "3. Binary Search Sentiment Analysis\n";
-    std::cout << "4. Bubble Sort Reviews by Sentiment\n";
-    std::cout << "5. Insertion Sort Reviews by Sentiment\n";
-    std::cout << "6. Exit\n";
+    std::cout << "2. Analyze Sentiment of Reviews using binary search (Positive and Negative Word Count)\n";
+    std::cout << "4. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -43,12 +40,8 @@ int main() {
             showReviewAndRating(reviewHead);
             break;
         case 2:
-            // Perform linear search and display sentiment analysis
-            linearSearchSentimentAnalysis(reviewHead, positiveWordsHead, negativeWordsHead);
-            break;
-        case 3:
-            // Perform binary search and display sentiment analysis
-            binarySearchSentimentAnalysis(reviewHead, positiveWordsHead, negativeWordsHead);
+            // Perform sentiment analysis (positive and negative word count for each review)
+            option2DisplaySentiment(reviewHead, positiveWordsHead, negativeWordsHead);
             break;
         case 4:
             // Bubble sort the reviews by sentiment
