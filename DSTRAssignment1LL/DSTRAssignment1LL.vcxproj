@@ -129,17 +129,18 @@
   <ItemGroup>
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt" />
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt" />
+    <Text Include="binary_search.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\tripadvisor_hotel_reviews.csv" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hotel_reviews.cpp" />
-    <ClCompile Include="main_menu.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="reviewlist.cpp" />
     <ClCompile Include="sentimentcalculation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hotel_reviews.h" />
+    <ClInclude Include="reviewlist.h" />
     <ClInclude Include="sentimentcalculation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
