@@ -3,9 +3,8 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
-#include <chrono>
 
-// Helper function to split a string into words manually and store them in a linked list
+// Helper function to split a string into words and store them in a linked list
 WordNode* splitReviewIntoWords(const std::string& review) {
     WordNode* wordListHead = nullptr;
     std::istringstream iss(review);
@@ -18,174 +17,187 @@ WordNode* splitReviewIntoWords(const std::string& review) {
     return wordListHead;  // Return the head of the word linked list
 }
 
-// Function to get the size of the linked list
-int getListSize(WordNode* head) {
-    int size = 0;
-    WordNode* current = head;
-    while (current != nullptr) {
-        size++;
-        current = current->next;
+// Function to add a review to the linked list
+void addReview(ReviewNode*& head, const std::string& review, int rating) {
+    ReviewNode* newNode = new ReviewNode();  // Create a new node
+    newNode->review = review;                // Assign review text
+    newNode->rating = rating;                // Assign rating
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;  // Set the new node as the head if the list is empty
     }
-    return size;
-}
-
-// Function to get the node at a specific index in the linked list
-WordNode* getNodeAtIndex(WordNode* head, int index) {
-    WordNode* current = head;
-    int count = 0;
-    while (current != nullptr) {
-        if (count == index) {
-            return current;
+    else {
+        ReviewNode* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;  // Traverse to the end of the list
         }
-        count++;
-        current = current->next;
-    }
-    return nullptr;  // Index out of bounds
-}
-
-// Binary search on linked list
-bool binarySearchWord(WordNode* head, const std::string& word, int listSize) {
-    int left = 0;
-    int right = listSize - 1;
-
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        WordNode* midNode = getNodeAtIndex(head, mid);
-
-        if (midNode->word == word) {
-            return true;
-        }
-        if (midNode->word < word) {
-            left = mid + 1;
-        }
-        else {
-            right = mid - 1;
-        }
-    }
-
-    return false;
-}
-
-// Function to display positive and negative word counts in reviews
-void option2DisplaySentiment(ReviewNode* reviewHead, WordNode* positiveWordsHead, WordNode* negativeWordsHead) {
-    int positiveListSize = getListSize(positiveWordsHead);
-    int negativeListSize = getListSize(negativeWordsHead);
-
-    ReviewNode* currentReview = reviewHead;
-    while (currentReview != nullptr) {
-        std::string reviewText = currentReview->review;
-        WordNode* reviewWordsHead = splitReviewIntoWords(reviewText);  // Split review into words (linked list)
-
-        int positiveCount = 0;
-        int negativeCount = 0;
-
-        // Count positive and negative words in the review
-        WordNode* currentWord = reviewWordsHead;
-        while (currentWord != nullptr) {
-            if (binarySearchWord(positiveWordsHead, currentWord->word, positiveListSize)) {
-                positiveCount++;
-            }
-            if (binarySearchWord(negativeWordsHead, currentWord->word, negativeListSize)) {
-                negativeCount++;
-            }
-            currentWord = currentWord->next;
-            std::getline(ss, ratingString, ',');
-        }
-        // Display the review and the counts
-        std::cout << "\nReview: " << reviewText << "\n";
-        std::cout << "Positive words: " << positiveCount << "\n";
-        std::cout << "Negative words: " << negativeCount << "\n";
-
-        // Move to the next review
-        currentReview = currentReview->next;
-        ratingString = trim(ratingString);
-        // Free the memory for the reviewWordsHead linked list
-        while (reviewWordsHead != nullptr) {
-            WordNode* temp = reviewWordsHead;
-            reviewWordsHead = reviewWordsHead->next;
-            delete temp;
-        }
+        temp->next = newNode;  // Append the new node at the end of the list
     }
 }
+
+// Function to add a word to the linked list
+void addWord(WordNode*& head, const std::string& word) {
+    WordNode* newNode = new WordNode();  // Create a new node
+    newNode->word = word;                // Assign word
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;  // Set the new node as the head if the list is empty
+    }
+    else {
+        WordNode* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;  // Traverse to the end of the list
         }
-// Load reviews from CSV file
+        temp->next = newNode;  // Append the new node at the end of the list
+    }
+}
+
+// Function to add a sentiment result to the linear search sentiment linked list
+void addLinearSentiment(LinearSentimentNode*& head, const std::string& review, int rating, int positiveCount, int negativeCount) {
+    LinearSentimentNode* newNode = new LinearSentimentNode();
+    newNode->review = review;
+    newNode->rating = rating;
+    newNode->positiveCount = positiveCount;
+    newNode->negativeCount = negativeCount;
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;  // Set the new node as the head if the list is empty
+    }
+    else {
+        LinearSentimentNode* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;  // Traverse to the end of the list
+        }
+        temp->next = newNode;  // Append the new node at the end of the list
+    }
+}
+
+// Function to load reviews from CSV file
 void loadReviewsFromFile(ReviewNode*& head, const std::string& filename) {
     std::ifstream file(filename);
     std::string line;
 
+    // Skip the header row
+    if (std::getline(file, line)) {
+        // Read the header line but don't process it
+    }
+
     while (std::getline(file, line)) {
-        // Find the position of the last comma (before the rating)
         size_t commaPos = line.find_last_of(',');
 
         if (commaPos != std::string::npos) {
-            // Extract the review text (from start to just before the last comma)
             std::string review = line.substr(0, commaPos);
+            std::string ratingString = line.substr(commaPos + 1);
 
-            // Extract the rating (after the last comma)
-            int rating = std::stoi(line.substr(commaPos + 1));
+            int rating = 0;
+            try {
+                rating = std::stoi(ratingString);
+            }
+            catch (const std::invalid_argument&) {
+                std::cerr << "Invalid rating encountered: " << ratingString << ". Defaulting to 0.\n";
+                rating = 0;
+            }
 
-            // Add the review and rating to the linked list
             addReview(head, review, rating);
         }
     }
     file.close();  // Close the file after reading
 }
 
-// Load words from a text file into a linked list
+// Function to load words (positive or negative) from a text file into a linked list
+void loadWordsFromFile(WordNode*& head, const std::string& filename) {
     std::ifstream file(filename);
+    std::string word;
 
-    while (file >> word) {
     while (std::getline(file, word)) {
-        // Add each word to the linked list
+        addWord(head, word);  // Add each word to the linked list
+    }
 
     file.close();  // Close the file after reading
 }
 
-// Add a review to the linked list
-void addReview(ReviewNode*& head, const std::string& review, int rating) {
-    ReviewNode* newNode = new ReviewNode{ review, rating, nullptr };
+// Function to display reviews and ratings from the linked list
+void showReviewAndRating(ReviewNode* head) {
     if (head == nullptr) {
-        head = newNode;
+        std::cout << "No reviews available.\n";
+        return;
     }
-    else {
-        ReviewNode* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
+
+    ReviewNode* temp = head;
+    while (temp != nullptr) {
+        std::cout << "Review: " << temp->review << "\n";
+        if (temp->rating != 0) {
+            std::cout << "Rating: " << temp->rating << "/5\n";
         }
-        temp->next = newNode;
-    }
-// Add a word to the linked list
-void addWord(WordNode*& head, const std::string& word) {
-    WordNode* newNode = new WordNode{ word, nullptr };
-    if (head == nullptr) {
-        head = newNode;
-    }
-    else {
-        WordNode* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
         else {
-        temp->next = newNode;
+            std::cout << "Rating: N/A\n";
+        }
         std::cout << "\n";  // Add a blank line after each review and rating
         temp = temp->next;
     }
 }
 
-// Show reviews and ratings
-void showReviewAndRating(ReviewNode* head) {
-    ReviewNode* current = head;
-    while (current != nullptr) {
-        std::cout << "Review: " << current->review << "\n";
-        std::cout << "Rating: " << current->rating << "\n";
-        current = current->next;
+// Function to display sentiment analysis results
+void displayLinearSentimentResults(LinearSentimentNode* head) {
+    if (head == nullptr) {
+        std::cout << "No sentiment results available.\n";
+        return;
+    }
+
+    LinearSentimentNode* temp = head;
+    while (temp != nullptr) {
+        std::cout << "Review: " << temp->review << "\n";
+        std::cout << "Positive Words: " << temp->positiveCount << "\n";
+        std::cout << "Negative Words: " << temp->negativeCount << "\n";
+        std::cout << "Rating: " << temp->rating << "\n\n";
+        temp = temp->next;
     }
 }
 
-// Show all words in the linked list
-void showWords(WordNode* head) {
-    WordNode* current = head;
+// Linear search function to count matching words in a review
+int linearSearchForWord(WordNode* wordList, const std::string& word) {
+    WordNode* current = wordList;
     while (current != nullptr) {
-        std::cout << current->word << "\n";
-void binarySearchSentimentAnalysis(ReviewNode* reviews, WordNode* positiveWords, WordNode* negativeWords) {
-    std::cout << "Performing binary search for sentiment analysis...\n";
+        if (current->word == word) {
+            return 1;  // Word found
+        }
+        current = current->next;
+    }
+    return 0;  // Word not found
 }
+
+// Linear search for sentiment analysis
+void linearSearchSentimentAnalysis(ReviewNode* reviews, WordNode* positiveWords, WordNode* negativeWords, LinearSentimentNode*& sentimentHead) {
+    ReviewNode* currentReview = reviews;
+
+    while (currentReview != nullptr) {
+        std::string reviewText = currentReview->review;
+        WordNode* reviewWordsHead = splitReviewIntoWords(reviewText);  // Split review into words
+
+        int positiveCount = 0;
+        int negativeCount = 0;
+
+        WordNode* currentWord = reviewWordsHead;
+        while (currentWord != nullptr) {
+            if (linearSearchForWord(positiveWords, currentWord->word)) {
+                positiveCount++;
+            }
+            if (linearSearchForWord(negativeWords, currentWord->word)) {
+                negativeCount++;
+            }
+            currentWord = currentWord->next;
+        }
+
+        // Add the sentiment analysis result to the new linked list
+        addLinearSentiment(sentimentHead, reviewText, currentReview->rating, positiveCount, negativeCount);
+
+        // Move to the next review
+        currentReview = currentReview->next;
+
+        // Free memory allocated for the review words linked list
+        while (reviewWordsHead != nullptr) {
+            WordNode* temp = reviewWordsHead;
+

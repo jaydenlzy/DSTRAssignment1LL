@@ -5,8 +5,8 @@
 void displayMenu() {
     std::cout << "\nMenu:\n";
     std::cout << "1. Show Reviews and Ratings\n";
-    std::cout << "2. Analyze Sentiment of Reviews using binary search (Positive and Negative Word Count)\n";
-    std::cout << "4. Exit\n";
+    std::cout << "2. Linear Search Sentiment Analysis\n";  // Added option for linear search
+    std::cout << "3. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -15,7 +15,6 @@ int main() {
     ReviewNode* reviewHead = nullptr;
     WordNode* positiveWordsHead = nullptr;
     WordNode* negativeWordsHead = nullptr;
-    SentimentNode* sentimentHead = nullptr;
 
     // Load reviews and ratings from the CSV file
     std::string reviewFilename = "tripadvisor_hotel_reviews.csv";
@@ -40,18 +39,10 @@ int main() {
             showReviewAndRating(reviewHead);
             break;
         case 2:
-            // Perform sentiment analysis (positive and negative word count for each review)
-            option2DisplaySentiment(reviewHead, positiveWordsHead, negativeWordsHead);
+            // Perform linear search sentiment analysis
+            linearSearchSentimentAnalysis(reviewHead, positiveWordsHead, negativeWordsHead);
             break;
-        case 4:
-            // Bubble sort the reviews by sentiment
-            bubbleSortReviewsBySentiment(reviewHead);
-            break;
-        case 5:
-            // Insertion sort the reviews by sentiment
-            insertionSortReviewsBySentiment(reviewHead);
-            break;
-        case 6:
+        case 3:
             // Exit the program
             std::cout << "Exiting the program.\n";
             return 0;

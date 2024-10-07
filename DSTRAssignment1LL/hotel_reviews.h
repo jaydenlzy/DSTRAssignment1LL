@@ -6,20 +6,23 @@
 // Linked list node for storing reviews and ratings
 struct ReviewNode {
     std::string review;  // Review text
-    int rating;          // Rating associated with the review
-    ReviewNode* next = nullptr;    // Pointer to the next node, initialized to nullptr
+    int rating;          // Rating
+    ReviewNode* next = nullptr;
 };
 
 // Linked list node for storing words (positive and negative)
 struct WordNode {
-    std::string word;    // Word (positive or negative)
-    WordNode* next = nullptr;      // Pointer to the next node, initialized to nullptr
+    std::string word;
+    WordNode* next = nullptr;
 };
 
-// Linked list node for storing words found during sentiment analysis
-struct FoundWordNode {
-    std::string word;    // Word found in the review
-    FoundWordNode* next = nullptr; // Pointer to the next node, initialized to nullptr
+// Linked list node for storing results of the linear search sentiment analysis
+struct LinearSentimentNode {
+    std::string review;
+    int rating;
+    int positiveCount;
+    int negativeCount;
+    LinearSentimentNode* next = nullptr;
 };
 
 // Function declarations
@@ -27,7 +30,7 @@ struct FoundWordNode {
 // Helper functions
 void addReview(ReviewNode*& head, const std::string& review, int rating);
 void addWord(WordNode*& head, const std::string& word);
-void addFoundWord(FoundWordNode*& head, const std::string& word);
+void addLinearSentiment(LinearSentimentNode*& head, const std::string& review, int rating, int positiveCount, int negativeCount);
 
 // File loading functions
 void loadReviewsFromFile(ReviewNode*& head, const std::string& filename);
@@ -35,15 +38,9 @@ void loadWordsFromFile(WordNode*& head, const std::string& filename);
 
 // Display functions
 void showReviewAndRating(ReviewNode* head);
-void displayFoundWords(FoundWordNode* head);
+void displayLinearSentimentResults(LinearSentimentNode* head);
 
 // Sentiment analysis functions
-void option2DisplaySentiment(ReviewNode* reviewHead, WordNode* positiveWordsHead, WordNode* negativeWordsHead);
-
-// Utility functions for word processing
-WordNode* splitReviewIntoWords(const std::string& review);
-int getListSize(WordNode* head);
-WordNode* getNodeAtIndex(WordNode* head, int index);
-bool binarySearchWord(WordNode* head, const std::string& word, int listSize);
+void linearSearchSentimentAnalysis(ReviewNode* reviews, WordNode* positiveWords, WordNode* negativeWords, LinearSentimentNode*& sentimentHead);
 
 #endif // HOTEL_REVIEWS_H
