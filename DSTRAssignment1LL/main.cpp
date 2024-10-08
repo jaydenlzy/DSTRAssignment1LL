@@ -46,12 +46,10 @@ void printToBoth(ostream& fileStream, const string& message) {
 }
 
 int main() {
-    // Declare and open the file for output
-    std::ofstream outfile("linear_search_results.txt");
-
-    // Check if the file was successfully opened
-    if (!outfile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
+    // Open the file for writing results
+    std::ofstream linearOutFile("linear_search_results.txt");
+    if (!linearOutFile) {
+        std::cerr << "Error opening the file for writing" << std::endl;
         return 1;
     }
 
@@ -67,39 +65,23 @@ int main() {
     reviewList.countPositiveNegativeWords("positive-words.txt", "negative-words.txt");
 
     // Linear Search
-    printToBoth(outfile, "Performing Linear Search (Sentiment Analysis for all reviews):\n");
+    printToBoth(linearOutFile, "Performing Linear Search (Sentiment Analysis for all reviews):\n");
     auto linearStart = steady_clock::now();
 
-    // Iterate over all reviews, calculate sentiment, and evaluate accuracy
-    for (int i = 0; i < reviewList.getSize(); i++) {
-        string review;
-        int rating;
-        double sentimentScore = reviewList.calculateSentimentScore(i);  // Ensure this function is implemented in reviewlist
-        reviewList.getReview(i, review, rating);  // Get the review and rating at index i
-
-        // Print the review, rating, and sentiment score
-        string sentimentResult = evaluateReview(sentimentScore, rating);
-        printToBoth(outfile, "Review: " + review + "\n");
-        printToBoth(outfile, "Rating: " + to_string(rating) + "\n");
-        printToBoth(outfile, "Sentiment Score: " + to_string(sentimentScore) + "\n");
-        printToBoth(outfile, "Evaluation: " + sentimentResult + "\n\n");
-    }
+    reviewList.linearSearchAllReviews(&linearOutFile);  // Pass the output file stream
 
     auto linearEnd = steady_clock::now();
     auto linearDuration = duration_cast<milliseconds>(linearEnd - linearStart).count();
-    printToBoth(outfile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");
+    printToBoth(linearOutFile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");
 
     // End measuring total time
     auto totalEnd = steady_clock::now();
     auto totalDuration = duration_cast<milliseconds>(totalEnd - totalStart).count();
 
     // Print the total time taken to both CLI and the file
-    printToBoth(outfile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
+    printToBoth(linearOutFile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
 
-    // Also print to CLI to notify the user that the results are in the file
-    std::cout << "Results have been printed to linear_search_results.txt" << std::endl;
-
-    outfile.close();  // Close the file
+    linearOutFile.close();  // Close the linear search file
 
     return 0;
 }

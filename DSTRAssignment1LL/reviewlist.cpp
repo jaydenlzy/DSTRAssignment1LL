@@ -69,15 +69,12 @@ void ReviewList::displayReviews() {
         cout << "Positive Words (" << temp->positiveCount << "): ";
         temp->positiveWordList.displayWords();  // Display positive words
         cout << endl;
-
         cout << "Negative Words (" << temp->negativeCount << "): ";
         temp->negativeWordList.displayWords();  // Display negative words
         cout << endl;
-
         // Calculate and display sentiment score
         double sentimentScore = SentimentCalculation::calculateSentimentScore(temp->positiveCount, temp->negativeCount);
         cout << "Sentiment Score (1 - 5): " << sentimentScore << endl;
-
         temp = temp->next;
     }
 }
@@ -121,36 +118,54 @@ std::string evaluateReview(double sentimentScore, double rating) {
     }
 }
 
+void WordList::displayWords() const {
+    WordNode* temp = head;
+    while (temp != nullptr) {
+        cout << temp->word;
+        if (temp->next != nullptr) {
+            cout << ", ";
+        }
+        temp = temp->next;
+    }
+}
+
+
 // Linear search through all reviews and perform sentiment analysis
-void ReviewList::linearSearchAllReviews() {
+void ReviewList::linearSearchAllReviews(std::ofstream* outFile) {
     ReviewNode* temp = head;
 
     while (temp != nullptr) {
         // Perform sentiment analysis for each review
-        cout << "Review (Linear Search): " << temp->review << endl;
-        cout << "Rating: " << temp->rating << endl;
-        cout << "Positive Words: " << temp->positiveCount << " [";
-        temp->positiveWordList.displayWords();
-        cout << "]" << endl;
-        cout << "Negative Words: " << temp->negativeCount << " [";
-        temp->negativeWordList.displayWords();
-        cout << "]" << endl;
+        string output = "Review: " + temp->review + "\n";
+        output += "Rating: " + to_string(temp->rating) + "\n";
+
+        output += "Positive Words (" + to_string(temp->positiveCount) + "): [";
+        temp->positiveWordList.displayWords(output);
+        output += "]\n";
+
+        output += "Negative Words (" + to_string(temp->negativeCount) + "): [";
+        temp->negativeWordList.displayWords(output);
+        output += "]\n";
 
         // Calculate sentiment score
         double sentimentScore = SentimentCalculation::calculateSentimentScore(temp->positiveCount, temp->negativeCount);
-        cout << "Sentiment Score (1 - 5): " << sentimentScore << endl;
+        output += "Sentiment Score: " + to_string(sentimentScore) + "\n";
 
         // Evaluate the review based on the sentiment score
         string evaluation = evaluateReview(sentimentScore, temp->rating);
-        cout << "Evaluation: " << evaluation << endl;
+        output += "Evaluation: " + evaluation + "\n\n";
 
-        // Move to the next review
+        // Print to both console and file
+        cout << output;
+        if (outFile != nullptr && outFile->is_open()) {
+            *outFile << output;
+        }
+
         temp = temp->next;
-
-        // Optionally, add a separator for readability
-        cout << "-------------------------------------" << endl;
     }
 }
+
+
 // Function to calculate sentiment score for a review at a specific index
 double ReviewList::calculateSentimentScore(int index) {
     ReviewNode* temp = head;
