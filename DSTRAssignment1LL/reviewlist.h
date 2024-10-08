@@ -34,10 +34,14 @@ struct WordList {
     void displayWords(std::string& output) const {
         WordNode* temp = head;
         while (temp != nullptr) {
-            std::cout << temp->word << " ";
+            output += temp->word; // Append the word
+            if (temp->next != nullptr) {
+                output += ", ";  // Add a comma and space if there's a next word
+            }
             temp = temp->next;
         }
     }
+
 };
 
 // Node structure to store review

@@ -108,13 +108,13 @@ std::string evaluateReview(double sentimentScore, double rating) {
     double difference = abs(rating - sentimentScore);
 
     if (difference > 0.5) {
-        return "The review is not accurate because the difference is too high.";
+        return "The review is not accurate because the rating given by the customer is higher than the calculate sentiment review.";
     }
     else if (difference <= 0.25) {
         return "The review is accurate.";
     }
     else {
-        return "The review is not accurate because the difference is too low.";
+        return "The review is not accurate because the rating given by the customer is lower than the calculate sentiment review.";
     }
 }
 
