@@ -2,7 +2,7 @@
 #define REVIEWLIST_H
 
 #include <string>
-#include <iostream>  // Add this to use std::cout
+#include <iostream>
 
 struct WordNode {
     std::string word;
@@ -33,7 +33,7 @@ struct WordList {
     void displayWords() const {
         WordNode* temp = head;
         while (temp != nullptr) {
-            std::cout << temp->word << " ";  // Now std::cout will be recognized
+            std::cout << temp->word << " ";
             temp = temp->next;
         }
     }
@@ -71,8 +71,11 @@ public:
     // Function to count positive and negative words in each review
     void countPositiveNegativeWords(const std::string& positiveFile, const std::string& negativeFile);
 
-    // Function to perform a binary search for a review
-    void binarySearchReview(const std::string& review);
+    // Function to perform binary search and sentiment analysis on all reviews
+    void binarySearchAllReviews();  // Declare the binary search function
+
+    // Function to perform linear search and sentiment analysis on all reviews
+    void linearSearchAllReviews();  // Declare the linear search function
 };
 
 #endif

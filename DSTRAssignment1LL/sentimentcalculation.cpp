@@ -1,73 +1,30 @@
-#include "sentimentcalculation.h"
-#include <iostream>
-#include <sstream>
-#include <algorithm>
+#include "SentimentCalculation.h"
 
-// Function to add a sentiment result to the linked list
-void addSentiment(SentimentNode*& head, const std::string& review, int rating, int positiveCount, int negativeCount) {
-    SentimentNode* newNode = new SentimentNode();
-    newNode->review = review;
-    newNode->rating = rating;
-    newNode->positiveCount = positiveCount;
-    newNode->negativeCount = negativeCount;
-    newNode->next = nullptr;
-
-    if (head == nullptr) {
-        head = newNode;
-    }
-    else {
-        SentimentNode* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-    }
+// Function to calculate the raw sentiment score (Positive count - Negative count)
+int SentimentCalculation::calculateRawSentiment(int positiveCount, int negativeCount) {
+    return positiveCount - negativeCount;
 }
 
-// Function to count matching words in a review
-int countMatchingWords(const std::string& review, WordNode* wordHead) {
-    int count = 0;
-    std::stringstream ss(review);
-    std::string word;
+// Function to calculate the normalized sentiment score
+double SentimentCalculation::calculateNormalizedScore(int rawScore, int N) {
+    int minRawScore = -N;
+    int maxRawScore = N;
 
-    std::string lowerReview = review;
-    std::transform(lowerReview.begin(), lowerReview.end(), lowerReview.begin(), ::tolower);
-
-    while (ss >> word) {
-        std::string lowerWord = word;
-        std::transform(lowerWord.begin(), lowerWord.end(), lowerWord.begin(), ::tolower);
-
-        WordNode* temp = wordHead;
-        while (temp != nullptr) {
-            if (lowerWord == temp->word) {
-                count++;
-                break;
-            }
-            temp = temp->next;
-        }
-    }
-    return count;
+    // Normalized score based on min and max raw score
+    return static_cast<double>(rawScore - minRawScore) / (maxRawScore - minRawScore);
 }
 
-// Function to analyze all reviews and count positive and negative words
-void analyzeSentiments(ReviewNode* reviews, WordNode* positiveWords, WordNode* negativeWords, SentimentNode*& sentimentHead) {
-    ReviewNode* temp = reviews;
-    while (temp != nullptr) {
-        int positiveCount = countMatchingWords(temp->review, positiveWords);
-        int negativeCount = countMatchingWords(temp->review, negativeWords);
-        addSentiment(sentimentHead, temp->review, temp->rating, positiveCount, negativeCount);
-        temp = temp->next;
+// Function to convert normalized score to a sentiment score from 1 to 5
+double SentimentCalculation::calculateSentimentScore(int positiveCount, int negativeCount) {
+    int N = positiveCount + negativeCount;
+    if (N == 0) {
+        // If no positive or negative words, return a neutral score of 3
+        return 3.0;
     }
-}
 
-// Function to display the results of sentiment analysis
-void displaySentimentResults(SentimentNode* head) {
-    SentimentNode* temp = head;
-    while (temp != nullptr) {
-        std::cout << "Review: " << temp->review << "\n";
-        std::cout << "Positive Words: " << temp->positiveCount << "\n";
-        std::cout << "Negative Words: " << temp->negativeCount << "\n";
-        std::cout << "Rating: " << temp->rating << "\n\n";
-        temp = temp->next;
-    }
+    int rawScore = calculateRawSentiment(positiveCount, negativeCount);
+    double normalizedScore = calculateNormalizedScore(rawScore, N);
+
+    // Sentiment score is between 1 and 5
+    return 1 + (4 * normalizedScore);
 }

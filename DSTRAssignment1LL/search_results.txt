@@ -1,0 +1,10 @@
+Performing Binary Search:
+Binary Search Time: 6 milliseconds.
+
+Pausing for 10 seconds...
+Pause completed.
+
+Performing Linear Search:
+Linear Search Time: 4 milliseconds.
+
+Total time taken to run the program: 36318 milliseconds.

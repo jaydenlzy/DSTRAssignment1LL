@@ -1,21 +1,16 @@
-#ifndef SENTIMENT_CALCULATION_H
-#define SENTIMENT_CALCULATION_H
+#ifndef SENTIMENTCALCULATION_H
+#define SENTIMENTCALCULATION_H
 
-#include "hotel_reviews.h"
+class SentimentCalculation {
+public:
+    // Function to calculate the raw sentiment score (Positive count - Negative count)
+    static int calculateRawSentiment(int positiveCount, int negativeCount);
 
-// Sentiment calculation node for storing analysis results
-struct SentimentNode {
-    std::string review;
-    int rating;
-    int positiveCount;
-    int negativeCount;
-    SentimentNode* next;
+    // Function to calculate the normalized sentiment score
+    static double calculateNormalizedScore(int rawScore, int N);
+
+    // Function to convert normalized score to a sentiment score from 1 to 5
+    static double calculateSentimentScore(int positiveCount, int negativeCount);
 };
 
-// Function declarations
-void addSentiment(SentimentNode*& head, const std::string& review, int rating, int positiveCount, int negativeCount);
-int countMatchingWords(const std::string& review, WordNode* wordHead);
-void analyzeSentiments(ReviewNode* reviews, WordNode* positiveWords, WordNode* negativeWords, SentimentNode*& sentimentHead);
-void displaySentimentResults(SentimentNode* head);
-
-#endif // SENTIMENT_CALCULATION_H
+#endif
