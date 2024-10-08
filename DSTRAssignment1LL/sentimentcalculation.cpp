@@ -28,3 +28,4 @@ double SentimentCalculation::calculateSentimentScore(int positiveCount, int nega
     // Sentiment score is between 1 and 5
     return 1 + (4 * normalizedScore);
 }
+

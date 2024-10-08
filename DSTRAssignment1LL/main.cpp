@@ -4,6 +4,7 @@
 #include <chrono>  // For measuring time
 #include <thread>  // For sleep
 #include "reviewlist.h"
+#include "sentimentcalculation.h"  // Include sentiment calculation header
 
 using namespace std;
 using namespace std::chrono;  // For easier access to chrono types
@@ -38,6 +39,9 @@ void readReviewsFromCSV(string filename, ReviewList& reviewList) {
     }
 }
 
+
+
+
 // Helper function to print to both CLI and file
 void printToBoth(ostream& fileStream, const string& message) {
     std::cout << message;
@@ -66,7 +70,21 @@ int main() {
     // Linear Search
     printToBoth(linearOutFile, "Performing Linear Search (Sentiment Analysis for all reviews):\n");
     auto linearStart = steady_clock::now();
-    reviewList.linearSearchAllReviews();  // Modified to process all reviews for sentiment
+    // Iterate over all reviews, calculate sentiment, and evaluate accuracy
+    for (int i = 0; i < reviewList.getSize(); i++) {
+        string review;
+        int rating;
+        double sentimentScore = reviewList.calculateSentimentScore(i);  // Ensure this function is implemented in reviewlist
+        reviewList.getReview(i, review, rating);  // Get the review and rating at index i
+
+        // Print the review, rating, and sentiment score
+        string sentimentResult = evaluateReview(sentimentScore, rating);
+        printToBoth(linearOutFile, "Review: " + review + "\n");
+        printToBoth(linearOutFile, "Rating: " + to_string(rating) + "\n");
+        printToBoth(linearOutFile, "Sentiment Score: " + to_string(sentimentScore) + "\n");
+        printToBoth(linearOutFile, "Evaluation: " + sentimentResult + "\n\n");
+    }
+
     auto linearEnd = steady_clock::now();
     auto linearDuration = duration_cast<milliseconds>(linearEnd - linearStart).count();
     printToBoth(linearOutFile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+std::string evaluateReview(double sentimentScore, double rating);
 
 struct WordNode {
     std::string word;
@@ -73,6 +74,10 @@ public:
 
     // Function to perform linear search and sentiment analysis on all reviews
     void linearSearchAllReviews();  // Declare the linear search function
+    double calculateSentimentScore(int index);  // Declaration of the sentiment calculation function
+    void getReview(int index, std::string& review, int& rating);  // Declaration for retrieving a review and rating
+    int getSize();  // Declaration for getting the total number of reviews
+
 };
 
 #endif

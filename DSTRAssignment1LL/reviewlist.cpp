@@ -107,6 +107,19 @@ void ReviewList::countPositiveNegativeWords(const string& positiveFile, const st
         temp = temp->next;
     }
 }
+std::string evaluateReview(double sentimentScore, double rating) {
+    double difference = abs(rating - sentimentScore);
+
+    if (difference > 0.5) {
+        return "The review is not accurate because the difference is too high.";
+    }
+    else if (difference <= 0.25) {
+        return "The review is accurate.";
+    }
+    else {
+        return "The review is not accurate because the difference is too low.";
+    }
+}
 
 // Linear search through all reviews and perform sentiment analysis
 void ReviewList::linearSearchAllReviews() {
@@ -127,6 +140,61 @@ void ReviewList::linearSearchAllReviews() {
         double sentimentScore = SentimentCalculation::calculateSentimentScore(temp->positiveCount, temp->negativeCount);
         cout << "Sentiment Score (1 - 5): " << sentimentScore << endl;
 
+        // Evaluate the review based on the sentiment score
+        string evaluation = evaluateReview(sentimentScore, temp->rating);
+        cout << "Evaluation: " << evaluation << endl;
+
+        // Move to the next review
+        temp = temp->next;
+
+        // Optionally, add a separator for readability
+        cout << "-------------------------------------" << endl;
+    }
+}
+// Function to calculate sentiment score for a review at a specific index
+double ReviewList::calculateSentimentScore(int index) {
+    ReviewNode* temp = head;
+    int currentIndex = 0;
+
+    // Traverse to the correct index
+    while (temp != nullptr && currentIndex < index) {
+        temp = temp->next;
+        currentIndex++;
+    }
+
+    if (temp != nullptr) {
+        // Use positive and negative counts to calculate sentiment score
+        return SentimentCalculation::calculateSentimentScore(temp->positiveCount, temp->negativeCount);
+    }
+    else {
+        return -1;  // Return -1 for invalid index
+    }
+}
+
+// Function to retrieve the review and rating at a given index
+void ReviewList::getReview(int index, std::string& review, int& rating) {
+    ReviewNode* temp = head;
+    int currentIndex = 0;
+
+    // Traverse to the correct index
+    while (temp != nullptr && currentIndex < index) {
+        temp = temp->next;
+        currentIndex++;
+    }
+
+    if (temp != nullptr) {
+        review = temp->review;
+        rating = temp->rating;
+    }
+}
+
+// Function to get the total number of reviews
+int ReviewList::getSize() {
+    int size = 0;
+    ReviewNode* temp = head;
+    while (temp != nullptr) {
+        size++;
         temp = temp->next;
     }
+    return size;
 }

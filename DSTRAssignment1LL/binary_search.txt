@@ -1,1 +1,0 @@
-Time taken to run the program: 23360 milliseconds.
