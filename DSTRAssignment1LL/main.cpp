@@ -53,9 +53,6 @@ int main() {
         return 1;
     }
 
-    // Start measuring total execution time
-    auto totalStart = steady_clock::now();
-
     ReviewList reviewList;
 
     // Load reviews from the CSV file
@@ -73,31 +70,22 @@ int main() {
     auto linearEnd = steady_clock::now();
     auto linearDuration = duration_cast<milliseconds>(linearEnd - linearStart).count();
     printToBoth(linearOutFile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");
-
-    // End measuring total time
-    auto totalEnd = steady_clock::now();
-    auto totalDuration = duration_cast<milliseconds>(totalEnd - totalStart).count();
-
-    // Print the total time taken to both CLI and the file
-    printToBoth(linearOutFile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
+    cout << endl;
 
     linearOutFile.close();  // Close the linear search file
 
     // Wait for 5 seconds before proceeding
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
-        // Create a WordFrequencyList to store and sort word frequencies
+    // Create a WordFrequencyList to store and sort word frequencies
     WordFrequencyList wordFreqList;
 
-    // Populate word frequencies from all reviews (after counting words)
-    // Assuming we use wordFreqList.addWordFrequency(...) in the loop where words are counted
-    
     std::cout << "Sorting using insertion sort...\n";
 
     wordFreqList.insertionSort();  // Sort the word frequencies
 
     // Output the sorted word frequencies to both console and a new file
-    std::ofstream sortedOutFile("sorted_word_frequencies.txt");
+    std::ofstream sortedOutFile("insertion_sorted_word_frequencies.txt");
     wordFreqList.displayWordFrequencies(&sortedOutFile);
 
     sortedOutFile.close();
