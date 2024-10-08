@@ -58,6 +58,26 @@ struct ReviewNode {
     ReviewNode(std::string rev, int rate);
 };
 
+struct WordFrequencyNode {
+    std::string word;
+    int count;
+    WordFrequencyNode* next;
+    WordFrequencyNode(std::string w, int c) : word(w), count(c), next(nullptr) {}
+};
+
+class WordFrequencyList {
+private:
+    WordFrequencyNode* head;
+public:
+    WordFrequencyList() : head(nullptr) {}
+
+    void addWordFrequency(const std::string& word);
+    void displayWordFrequencies(std::ofstream* outFile = nullptr);
+    void insertionSort();  // The insertion sort function for sorting word frequencies
+};
+
+
+
 // Class to manage linked list of reviews
 class ReviewList {
 private:

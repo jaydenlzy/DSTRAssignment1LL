@@ -1,8 +1,0 @@
-Performing Binary Search (Sentiment Analysis for all reviews):
-Binary Search Time: 18 milliseconds.
-
-Pausing for 10 seconds before linear search...
-Pause completed.
-
-
-Total time taken to run the program: 54457 milliseconds.

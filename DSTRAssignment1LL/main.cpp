@@ -83,5 +83,25 @@ int main() {
 
     linearOutFile.close();  // Close the linear search file
 
+    // Wait for 5 seconds before proceeding
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+        // Create a WordFrequencyList to store and sort word frequencies
+    WordFrequencyList wordFreqList;
+
+    // Populate word frequencies from all reviews (after counting words)
+    // Assuming we use wordFreqList.addWordFrequency(...) in the loop where words are counted
+    
+    std::cout << "Sorting using insertion sort...\n";
+
+    wordFreqList.insertionSort();  // Sort the word frequencies
+
+    // Output the sorted word frequencies to both console and a new file
+    std::ofstream sortedOutFile("sorted_word_frequencies.txt");
+    wordFreqList.displayWordFrequencies(&sortedOutFile);
+
+    sortedOutFile.close();
+
+
     return 0;
 }

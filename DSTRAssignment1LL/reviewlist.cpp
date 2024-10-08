@@ -186,6 +186,69 @@ double ReviewList::calculateSentimentScore(int index) {
     }
 }
 
+void WordFrequencyList::insertionSort() {
+    if (!head || !head->next) return;  // No need to sort if list is empty or has only one element
+
+    WordFrequencyNode* sorted = nullptr;  // Start with an empty sorted list
+
+    WordFrequencyNode* current = head;
+    while (current != nullptr) {
+        WordFrequencyNode* next = current->next;
+
+        // Find the correct position in the sorted list
+        if (sorted == nullptr || sorted->count >= current->count) {
+            current->next = sorted;
+            sorted = current;
+        }
+        else {
+            WordFrequencyNode* temp = sorted;
+            while (temp->next != nullptr && temp->next->count < current->count) {
+                temp = temp->next;
+            }
+            current->next = temp->next;
+            temp->next = current;
+        }
+
+        current = next;
+    }
+    head = sorted;  // Update head to the sorted list
+}
+
+
+void WordFrequencyList::displayWordFrequencies(std::ofstream* outFile) {
+    WordFrequencyNode* temp = head;
+    std::string output = "Frequency of each word used in overall reviews, listed in ascending order based on frequency:\n";
+
+    while (temp != nullptr) {
+        output += temp->word + " = " + std::to_string(temp->count) + " times\n";
+        temp = temp->next;
+    }
+
+    // Print to both console and file
+    std::cout << output;
+    if (outFile != nullptr && outFile->is_open()) {
+        *outFile << output;
+    }
+}
+
+
+void WordFrequencyList::addWordFrequency(const std::string& word) {
+    // Search if word already exists in the list, and increment its count if found
+    WordFrequencyNode* temp = head;
+    while (temp != nullptr) {
+        if (temp->word == word) {
+            temp->count++;
+            return;
+        }
+        temp = temp->next;
+    }
+
+    // If word not found, add new node
+    WordFrequencyNode* newNode = new WordFrequencyNode(word, 1);
+    newNode->next = head;
+    head = newNode;
+}
+
 // Function to retrieve the review and rating at a given index
 void ReviewList::getReview(int index, std::string& review, int& rating) {
     ReviewNode* temp = head;
