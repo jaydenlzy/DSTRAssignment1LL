@@ -32,7 +32,8 @@ void readReviewsFromCSV(string filename, ReviewList& reviewList) {
             }
         }
         file.close();
-    } else {
+    }
+    else {
         cout << "Unable to open file!" << endl;
     }
 }
@@ -44,11 +45,10 @@ void printToBoth(ostream& fileStream, const string& message) {
 }
 
 int main() {
-    // Open the files for writing results
-    std::ofstream binaryOutFile("binary_search_results.txt");
+    // Open the file for writing results
     std::ofstream linearOutFile("linear_search_results.txt");
-    if (!binaryOutFile || !linearOutFile) {
-        std::cerr << "Error opening one of the files for writing" << std::endl;
+    if (!linearOutFile) {
+        std::cerr << "Error opening the file for writing" << std::endl;
         return 1;
     }
 
@@ -63,19 +63,6 @@ int main() {
     // Count positive and negative words in each review
     reviewList.countPositiveNegativeWords("positive-words.txt", "negative-words.txt");
 
-    // Binary Search
-    printToBoth(binaryOutFile, "Performing Binary Search (Sentiment Analysis for all reviews):\n");
-    auto binaryStart = steady_clock::now();
-    reviewList.binarySearchAllReviews();  // Modified to process all reviews for sentiment
-    auto binaryEnd = steady_clock::now();
-    auto binaryDuration = duration_cast<milliseconds>(binaryEnd - binaryStart).count();
-    printToBoth(binaryOutFile, "Binary Search Time: " + to_string(binaryDuration) + " milliseconds.\n\n");
-
-    // Pause for 10 seconds
-    printToBoth(binaryOutFile, "Pausing for 10 seconds before linear search...\n");
-    this_thread::sleep_for(chrono::seconds(10));
-    printToBoth(binaryOutFile, "Pause completed.\n\n");
-
     // Linear Search
     printToBoth(linearOutFile, "Performing Linear Search (Sentiment Analysis for all reviews):\n");
     auto linearStart = steady_clock::now();
@@ -89,10 +76,8 @@ int main() {
     auto totalDuration = duration_cast<milliseconds>(totalEnd - totalStart).count();
 
     // Print the total time taken to both CLI and the file
-    printToBoth(binaryOutFile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
     printToBoth(linearOutFile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
 
-    binaryOutFile.close();  // Close the binary search file
     linearOutFile.close();  // Close the linear search file
     return 0;
 }

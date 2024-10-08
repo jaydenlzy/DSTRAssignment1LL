@@ -1,4 +1,4 @@
 Performing Linear Search (Sentiment Analysis for all reviews):
-Linear Search Time: 27009 milliseconds.
+Linear Search Time: 24822 milliseconds.
 
-Total time taken to run the program: 46292 milliseconds.
+Total time taken to run the program: 33634 milliseconds.

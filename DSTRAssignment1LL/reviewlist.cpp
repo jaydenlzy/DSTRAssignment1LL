@@ -37,6 +37,25 @@ void ReviewList::addReview(string review, int rating) {
     }
 }
 
+std::unordered_set<std::string> loadWordsFromFile(const std::string& filename) {
+    std::unordered_set<std::string> words;
+    std::ifstream file(filename);
+    std::string word;
+
+    if (file.is_open()) {
+        while (std::getline(file, word)) {
+            words.insert(word);
+        }
+        file.close();
+    }
+    else {
+        std::cout << "Unable to open file: " << filename << std::endl;
+    }
+
+    return words;
+}
+
+
 // Function to display reviews (for debugging or general output)
 void ReviewList::displayReviews() {
     if (head == nullptr) {
@@ -63,24 +82,6 @@ void ReviewList::displayReviews() {
     }
 }
 
-// Function to load words from a file into an unordered_set for fast lookup
-unordered_set<string> loadWordsFromFile(const string& filename) {
-    unordered_set<string> words;
-    ifstream file(filename);
-    string word;
-
-    if (file.is_open()) {
-        while (getline(file, word)) {
-            words.insert(word);
-        }
-        file.close();
-    }
-    else {
-        cout << "Unable to open file: " << filename << endl;
-    }
-    return words;
-}
-
 // Function to count positive and negative words in each review
 void ReviewList::countPositiveNegativeWords(const string& positiveFile, const string& negativeFile) {
     unordered_set<string> positiveWords = loadWordsFromFile(positiveFile);
@@ -104,49 +105,6 @@ void ReviewList::countPositiveNegativeWords(const string& positiveFile, const st
             }
         }
         temp = temp->next;
-    }
-}
-
-// Binary search through all reviews and perform sentiment analysis
-void ReviewList::binarySearchAllReviews() {
-    ReviewNode* start = head;
-    ReviewNode* end = nullptr;
-
-    while (start != end) {
-        ReviewNode* mid = start;
-        ReviewNode* temp = start;
-        int len = 0;
-
-        // Find the length of the remaining list and the middle element
-        while (temp != end) {
-            len++;
-            temp = temp->next;
-        }
-
-        for (int i = 0; i < len / 2; ++i) {
-            mid = mid->next;
-        }
-
-        // Perform sentiment analysis for the middle review
-        cout << "Review (Binary Search): " << mid->review << endl;
-        cout << "Rating: " << mid->rating << endl;
-        cout << "Positive Words: " << mid->positiveCount << " [";
-        mid->positiveWordList.displayWords();
-        cout << "]" << endl;
-        cout << "Negative Words: " << mid->negativeCount << " [";
-        mid->negativeWordList.displayWords();
-        cout << "]" << endl;
-
-        // Calculate sentiment score
-        double sentimentScore = SentimentCalculation::calculateSentimentScore(mid->positiveCount, mid->negativeCount);
-        cout << "Sentiment Score (1 - 5): " << sentimentScore << endl;
-
-        if (mid->review < mid->next->review) {
-            start = mid->next;
-        }
-        else {
-            end = mid;
-        }
     }
 }
 

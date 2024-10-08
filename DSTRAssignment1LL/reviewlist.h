@@ -71,9 +71,6 @@ public:
     // Function to count positive and negative words in each review
     void countPositiveNegativeWords(const std::string& positiveFile, const std::string& negativeFile);
 
-    // Function to perform binary search and sentiment analysis on all reviews
-    void binarySearchAllReviews();  // Declare the binary search function
-
     // Function to perform linear search and sentiment analysis on all reviews
     void linearSearchAllReviews();  // Declare the linear search function
 };
