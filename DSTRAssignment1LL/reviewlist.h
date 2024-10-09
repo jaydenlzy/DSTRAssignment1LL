@@ -42,6 +42,8 @@ struct WordList {
         }
     }
 
+    bool contains(const std::string& word) const;
+
 };
 
 // Node structure to store review

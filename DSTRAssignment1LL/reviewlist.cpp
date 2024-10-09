@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <unordered_set>
 #include "SentimentCalculation.h"
 
 using namespace std;
@@ -37,24 +36,23 @@ void ReviewList::addReview(string review, int rating) {
     }
 }
 
-std::unordered_set<std::string> loadWordsFromFile(const std::string& filename) {
-    std::unordered_set<std::string> words;
-    std::ifstream file(filename);
-    std::string word;
+WordList loadWordsFromFile(const string& filename) {
+    WordList words;
+    ifstream file(filename);
+    string word;
 
     if (file.is_open()) {
-        while (std::getline(file, word)) {
-            words.insert(word);
+        while (getline(file, word)) {
+            words.addWord(word);
         }
         file.close();
     }
     else {
-        std::cout << "Unable to open file: " << filename << std::endl;
+        cout << "Unable to open file: " << filename << endl;
     }
 
     return words;
 }
-
 
 // Function to display reviews (for debugging or general output)
 void ReviewList::displayReviews() {
@@ -81,8 +79,8 @@ void ReviewList::displayReviews() {
 
 // Function to count positive and negative words in each review
 void ReviewList::countPositiveNegativeWords(const string& positiveFile, const string& negativeFile) {
-    unordered_set<string> positiveWords = loadWordsFromFile(positiveFile);
-    unordered_set<string> negativeWords = loadWordsFromFile(negativeFile);
+    WordList positiveWords = loadWordsFromFile(positiveFile);
+    WordList negativeWords = loadWordsFromFile(negativeFile);
 
     ReviewNode* temp = head;
     while (temp != nullptr) {
@@ -92,18 +90,30 @@ void ReviewList::countPositiveNegativeWords(const string& positiveFile, const st
             // Remove any punctuation from the word
             word.erase(remove_if(word.begin(), word.end(), [](unsigned char c) { return ispunct(c); }), word.end());
 
-            if (positiveWords.find(word) != positiveWords.end()) {
+            if (positiveWords.contains(word)) {
                 temp->positiveCount++;
-                temp->positiveWordList.addWord(word);  // Store the word in the linked list
+                temp->positiveWordList.addWord(word);
             }
-            else if (negativeWords.find(word) != negativeWords.end()) {
+            else if (negativeWords.contains(word)) {
                 temp->negativeCount++;
-                temp->negativeWordList.addWord(word);  // Store the word in the linked list
+                temp->negativeWordList.addWord(word);
             }
         }
         temp = temp->next;
     }
 }
+
+bool WordList::contains(const string& word) const {
+    WordNode* temp = head;
+    while (temp != nullptr) {
+        if (temp->word == word) {
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
+}
+
 std::string evaluateReview(double sentimentScore, double rating) {
     double difference = abs(rating - sentimentScore);
 
