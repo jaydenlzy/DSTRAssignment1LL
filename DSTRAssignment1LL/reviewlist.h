@@ -67,13 +67,14 @@ struct WordFrequencyNode {
 
 class WordFrequencyList {
 private:
-    WordFrequencyNode* head;
+    
 public:
     WordFrequencyList() : head(nullptr) {}
-
+    WordFrequencyNode* head;
     void addWordFrequency(const std::string& word);
     void displayWordFrequencies(std::ofstream* outFile = nullptr);
     void insertionSort();  // The insertion sort function for sorting word frequencies
+
 };
 
 
@@ -81,12 +82,11 @@ public:
 // Class to manage linked list of reviews
 class ReviewList {
 private:
-    ReviewNode* head; // Pointer to the head of the list
 
 public:
     // Constructor to initialize the list
     ReviewList();
-
+    ReviewNode* head; // Pointer to the head of the list
     // Function to add a new review to the list
     void addReview(std::string review, int rating);
 
@@ -101,7 +101,7 @@ public:
     double calculateSentimentScore(int index);  // Declaration of the sentiment calculation function
     void getReview(int index, std::string& review, int& rating);  // Declaration for retrieving a review and rating
     int getSize();  // Declaration for getting the total number of reviews
-
+    void addPositiveWordsToFrequencyList(WordFrequencyList& wordFreqList);
 };
 
 #endif

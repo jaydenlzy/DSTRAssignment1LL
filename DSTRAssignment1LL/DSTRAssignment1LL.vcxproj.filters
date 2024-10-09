@@ -21,6 +21,8 @@
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="bubble_sort_result.txt" />
+    <Text Include="linear_search_results.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\tripadvisor_hotel_reviews.csv">
@@ -28,21 +30,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main_menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hotel_reviews.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sentimentcalculation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reviewlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hotel_reviews.h">
+    <ClInclude Include="sentimentcalculation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sentimentcalculation.h">
+    <ClInclude Include="reviewlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

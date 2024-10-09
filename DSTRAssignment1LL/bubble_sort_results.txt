@@ -1,0 +1,3 @@
+Total Reviews: 20491
+Total Positive Word Count: 253398
+Total Negative Word Count: 82326

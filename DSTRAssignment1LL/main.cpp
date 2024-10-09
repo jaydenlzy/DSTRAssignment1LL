@@ -53,8 +53,6 @@ int main() {
         return 1;
     }
 
-    // Start measuring total execution time
-    auto totalStart = steady_clock::now();
 
     ReviewList reviewList;
 
@@ -74,12 +72,6 @@ int main() {
     auto linearDuration = duration_cast<milliseconds>(linearEnd - linearStart).count();
     printToBoth(linearOutFile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");
 
-    // End measuring total time
-    auto totalEnd = steady_clock::now();
-    auto totalDuration = duration_cast<milliseconds>(totalEnd - totalStart).count();
-
-    // Print the total time taken to both CLI and the file
-    printToBoth(linearOutFile, "\nTotal time taken to run the program: " + to_string(totalDuration) + " milliseconds.\n");
 
     linearOutFile.close();  // Close the linear search file
 
@@ -88,14 +80,31 @@ int main() {
 
         // Create a WordFrequencyList to store and sort word frequencies
     WordFrequencyList wordFreqList;
-
+    // Add all positive words to the frequency list
+    reviewList.addPositiveWordsToFrequencyList(wordFreqList);
     // Populate word frequencies from all reviews (after counting words)
     // Assuming we use wordFreqList.addWordFrequency(...) in the loop where words are counted
     
     std::cout << "Sorting using insertion sort...\n";
+    int totalReviews = reviewList.getSize();
+    std::cout << "Total number of reviews: " << totalReviews << std::endl;
 
+    // Now calculate and display total positive and negative word counts
+    ReviewNode* current = reviewList.head;  // Assuming 'head' is the start of your linked list
+    int totalPositiveWords = 0;
+    int totalNegativeWords = 0;
+
+    while (current != nullptr) {
+        totalPositiveWords += current->positiveCount;  // Sum up positive words
+        totalNegativeWords += current->negativeCount;  // Sum up negative words
+        current = current->next;
+    }
+
+    std::cout << "Total number of positive words used in reviews: " << totalPositiveWords << std::endl;
+    std::cout << "Total number of negative words used in reviews: " << totalNegativeWords << std::endl;
     wordFreqList.insertionSort();  // Sort the word frequencies
-
+    // Display the word with the highest frequency
+    WordFrequencyNode* mostFrequentWord = wordFreqList.head;
     // Output the sorted word frequencies to both console and a new file
     std::ofstream sortedOutFile("sorted_word_frequencies.txt");
     wordFreqList.displayWordFrequencies(&sortedOutFile);
