@@ -3581,7 +3581,7 @@ evasive: 1
 
 ----------------------------------------
 
-Total sorting time (positive and negative words): 3 milliseconds
+Total sorting time (positive and negative words): 4 milliseconds
 Top 5 most frequent positive words:
 great (21087), good (16972), nice (12399), clean (9359), like (8112), 
 

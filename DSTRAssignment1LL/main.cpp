@@ -106,6 +106,8 @@ int main() {
         totalNegativeWords += current->negativeCount;  // Sum up negative words
         current = current->next;
     }
+    int totalReviews = reviewList.getSize();
+    std::cout << "Total number of reviews: " << totalReviews << std::endl;
 
     std::cout << "Total number of positive words used in reviews: " << totalPositiveWords << std::endl;
     std::cout << "Total number of negative words used in reviews: " << totalNegativeWords << std::endl;
