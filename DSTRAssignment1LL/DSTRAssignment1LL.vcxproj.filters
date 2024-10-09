@@ -21,7 +21,6 @@
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="bubble_sort_result.txt" />
     <Text Include="linear_search_results.txt" />
   </ItemGroup>
   <ItemGroup>

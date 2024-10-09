@@ -102,6 +102,7 @@ public:
     void getReview(int index, std::string& review, int& rating);  // Declaration for retrieving a review and rating
     int getSize();  // Declaration for getting the total number of reviews
     void addPositiveWordsToFrequencyList(WordFrequencyList& wordFreqList);
+    void addNegativeWordsToFrequencyList(WordFrequencyList& wordFreqList);
 };
 
 #endif

@@ -53,7 +53,6 @@ int main() {
         return 1;
     }
 
-
     ReviewList reviewList;
 
     // Load reviews from the CSV file
@@ -72,25 +71,33 @@ int main() {
     auto linearDuration = duration_cast<milliseconds>(linearEnd - linearStart).count();
     printToBoth(linearOutFile, "Linear Search Time: " + to_string(linearDuration) + " milliseconds.\n");
 
-
     linearOutFile.close();  // Close the linear search file
 
+    cout << "waiting 5s before proceeding...\n";
     // Wait for 5 seconds before proceeding
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
-        // Create a WordFrequencyList to store and sort word frequencies
-    WordFrequencyList wordFreqList;
-    // Add all positive words to the frequency list
-    reviewList.addPositiveWordsToFrequencyList(wordFreqList);
-    // Populate word frequencies from all reviews (after counting words)
-    // Assuming we use wordFreqList.addWordFrequency(...) in the loop where words are counted
-    
-    std::cout << "Sorting using insertion sort...\n";
-    int totalReviews = reviewList.getSize();
-    std::cout << "Total number of reviews: " << totalReviews << std::endl;
+    // Create WordFrequencyList for positive and negative words
+    WordFrequencyList positiveWordFreqList;
+    WordFrequencyList negativeWordFreqList;
+
+    // Add all positive and negative words to the respective frequency lists
+    reviewList.addPositiveWordsToFrequencyList(positiveWordFreqList);
+    reviewList.addNegativeWordsToFrequencyList(negativeWordFreqList);
+
+    // Sort and time both positive and negative word sorting together
+    std::cout << "Sorting positive and negative words using insertion sort...\n";
+    auto sortStart = steady_clock::now();  // Start the timer before sorting
+
+    positiveWordFreqList.insertionSort();  // Perform the sorting for positive words
+    negativeWordFreqList.insertionSort();  // Perform the sorting for negative words
+
+    auto sortEnd = steady_clock::now();  // Stop the timer after sorting
+    auto totalInsertionSortDuration = duration_cast<milliseconds>(sortEnd - sortStart).count();  // Calculate the total sorting duration
+    std::cout << "Total insertion sort sorting time: " << totalInsertionSortDuration << " milliseconds.\n";
 
     // Now calculate and display total positive and negative word counts
-    ReviewNode* current = reviewList.head;  // Assuming 'head' is the start of your linked list
+    ReviewNode* current = reviewList.head;
     int totalPositiveWords = 0;
     int totalNegativeWords = 0;
 
@@ -102,15 +109,95 @@ int main() {
 
     std::cout << "Total number of positive words used in reviews: " << totalPositiveWords << std::endl;
     std::cout << "Total number of negative words used in reviews: " << totalNegativeWords << std::endl;
-    wordFreqList.insertionSort();  // Sort the word frequencies
-    // Display the word with the highest frequency
-    WordFrequencyNode* mostFrequentWord = wordFreqList.head;
-    // Output the sorted word frequencies to both console and a new file
-    std::ofstream sortedOutFile("sorted_word_frequencies.txt");
-    wordFreqList.displayWordFrequencies(&sortedOutFile);
 
-    sortedOutFile.close();
+    // Output the sorted positive and negative word frequencies into one file
+    std::ofstream sortedOutFile("insertion_sorted_word_frequencies.txt");
+    if (sortedOutFile.is_open()) {
+        // Output positive word frequencies
+        sortedOutFile << "Positive Word Frequencies:\n";
+        positiveWordFreqList.displayWordFrequencies(&sortedOutFile);
 
+        // Separate positive and negative sections
+        sortedOutFile << "\n----------------------------------------\n\n";
+
+        // Output negative word frequencies
+        sortedOutFile << "Negative Word Frequencies:\n";
+        negativeWordFreqList.displayWordFrequencies(&sortedOutFile);
+
+        // Append sorting times
+        sortedOutFile << "\n----------------------------------------\n\n";
+        sortedOutFile << "Total sorting time (positive and negative words): " << totalInsertionSortDuration << " milliseconds\n";
+
+        // Function to display top 5 most and least frequent words
+        auto displayTop5Words = [](WordFrequencyList& wordList, std::ostream& os, const std::string& type) {
+            WordFrequencyNode* current = wordList.head;
+            int count = 0;
+
+            // Display top 5 most frequent words
+            os << "Top 5 most frequent " << type << " words:\n";
+            std::cout << "Top 5 most frequent " << type << " words:\n";
+            while (current != nullptr && count < 5) {
+                os << current->word << " (" << current->count << "), ";
+                std::cout << current->word << " (" << current->count << "), ";
+                current = current->next;
+                count++;
+            }
+            os << "\n\n";
+            std::cout << "\n\n";
+
+            // Reset to head and find the top 5 least frequent words by sorting them manually
+            WordFrequencyNode* temp = wordList.head;
+            int totalCount = 0;
+
+            // Traverse to find the total number of nodes
+            while (temp != nullptr) {
+                totalCount++;
+                temp = temp->next;
+            }
+
+            // Traverse again to get the least frequent words
+            temp = wordList.head;
+            count = 0;
+            os << "Top 5 least frequent " << type << " words:\n";
+            std::cout << "Top 5 least frequent " << type << " words:\n";
+            while (temp != nullptr && count < totalCount - 5) {
+                temp = temp->next;
+                count++;
+            }
+            // Print the last 5 nodes
+            count = 0;
+            while (temp != nullptr && count < 5) {
+                os << temp->word << " (" << temp->count << "), ";
+                std::cout << temp->word << " (" << temp->count << "), ";
+                temp = temp->next;
+                count++;
+            }
+            os << "\n\n";
+            std::cout << "\n\n";
+            };
+
+        // Display max and min used words for positive and negative reviews
+        if (positiveWordFreqList.head != nullptr) {
+            displayTop5Words(positiveWordFreqList, sortedOutFile, "positive");
+        }
+        else {
+            sortedOutFile << "\nNo positive words found in the reviews.\n";
+            std::cout << "\nNo positive words found in the reviews.\n";
+        }
+
+        if (negativeWordFreqList.head != nullptr) {
+            displayTop5Words(negativeWordFreqList, sortedOutFile, "negative");
+        }
+        else {
+            sortedOutFile << "No negative words found in the reviews.\n";
+            std::cout << "No negative words found in the reviews.\n";
+        }
+
+        sortedOutFile.close();
+    }
+    else {
+        std::cerr << "Error opening the file for writing sorted word frequencies." << std::endl;
+    }
 
     return 0;
 }

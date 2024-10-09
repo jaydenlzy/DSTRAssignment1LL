@@ -296,3 +296,20 @@ void ReviewList::addPositiveWordsToFrequencyList(WordFrequencyList& wordFreqList
         current = current->next;
     }
 }
+
+void ReviewList::addNegativeWordsToFrequencyList(WordFrequencyList& wordFreqList) {
+    ReviewNode* current = head;
+
+    // Traverse each review
+    while (current != nullptr) {
+        WordNode* wordNode = current->negativeWordList.head;
+
+        // Traverse each word in the negative word list of the current review
+        while (wordNode != nullptr) {
+            wordFreqList.addWordFrequency(wordNode->word);
+            wordNode = wordNode->next;
+        }
+
+        current = current->next;
+    }
+}

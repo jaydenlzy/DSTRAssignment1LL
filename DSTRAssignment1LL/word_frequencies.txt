@@ -1,1 +1,0 @@
-Frequency of each word used in overall reviews, listed in ascending order based on frequency:

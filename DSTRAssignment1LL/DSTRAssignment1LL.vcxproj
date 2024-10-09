@@ -129,7 +129,6 @@
   <ItemGroup>
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt" />
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt" />
-    <Text Include="bubble_sort_result.txt" />
     <Text Include="linear_search_results.txt" />
   </ItemGroup>
   <ItemGroup>
