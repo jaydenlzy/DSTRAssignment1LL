@@ -313,3 +313,29 @@ void ReviewList::addNegativeWordsToFrequencyList(WordFrequencyList& wordFreqList
         current = current->next;
     }
 }
+void WordFrequencyList::selectionSort() {
+    WordFrequencyNode* current = head;
+
+    while (current != nullptr) {
+        WordFrequencyNode* minNode = current;
+        WordFrequencyNode* nextNode = current->next;
+
+        // Find the node with the minimum count
+        while (nextNode != nullptr) {
+            if (nextNode->count < minNode->count) {
+                minNode = nextNode;
+            }
+            nextNode = nextNode->next;
+        }
+
+        // Swap the current node with the minNode
+        if (minNode != current) {
+            std::swap(current->word, minNode->word);
+            std::swap(current->count, minNode->count);
+        }
+
+        current = current->next;  // Move to the next node
+    }
+}
+
+

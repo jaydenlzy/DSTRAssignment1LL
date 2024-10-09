@@ -130,6 +130,7 @@
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt" />
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt" />
     <Text Include="linear_search_results.txt" />
+    <Text Include="selection_sorted_word_frequencies.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\tripadvisor_hotel_reviews.csv" />

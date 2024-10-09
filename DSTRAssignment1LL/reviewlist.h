@@ -74,6 +74,7 @@ public:
     void addWordFrequency(const std::string& word);
     void displayWordFrequencies(std::ofstream* outFile = nullptr);
     void insertionSort();  // The insertion sort function for sorting word frequencies
+    void selectionSort();  // Declare selection sort
 
 };
 
