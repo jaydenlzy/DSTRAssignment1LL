@@ -202,7 +202,7 @@ void WordFrequencyList::insertionSort() {
     }
 
 
-    WordFrequencyNode* sorted = nullptr;  // Start with an empty sorted list
+    WordFrequencyNode* sorted = nullptr;
 
     WordFrequencyNode* current = head;
     while (current != nullptr) {
@@ -327,44 +327,43 @@ void WordFrequencyList::selectionSort() {
     WordFrequencyNode* current = head;
 
     while (current != nullptr) {
-        WordFrequencyNode* minNode = current;
+        WordFrequencyNode* maxNode = current;
         WordFrequencyNode* nextNode = current->next;
 
-        // Find the node with the minimum count
+        // Find the node with the maximum count
         while (nextNode != nullptr) {
-            if (nextNode->count < minNode->count) {
-                minNode = nextNode;
+            if (nextNode->count > maxNode->count) {
+                maxNode = nextNode;
             }
             nextNode = nextNode->next;
         }
 
-        // Swap the data of current node and minNode
-        if (minNode != current) {
-            std::swap(current->word, minNode->word);
-            std::swap(current->count, minNode->count);
+        // Swap the data of current node and maxNode
+        if (maxNode != current) {
+            std::swap(current->word, maxNode->word);
+            std::swap(current->count, maxNode->count);
         }
 
         current = current->next;  // Move to the next node
     }
 }
 
+
 void WordFrequencyList::displayTop5Frequencies(std::ofstream& outFile, const std::string& type) {
     WordFrequencyNode* temp = head;
     int count = 0;
 
-    // Display top 5 most frequent words
-    outFile << "Top 5 most frequent " << type << " words:\n";
-    std::cout << "Top 5 most frequent " << type << " words:\n";
+    std::string output = "Top 5 most frequent " + type + " words:\n";
     while (temp != nullptr && count < 5) {
-        outFile << temp->word << " (" << temp->count << "), ";
-        std::cout << temp->word << " (" << temp->count << "), ";
+        output += temp->word + " (" + std::to_string(temp->count) + "), ";
         temp = temp->next;
         count++;
     }
-    outFile << "\n\n";
-    std::cout << "\n\n";
+    output += "\n\n";
 
-    // Correct logic for least frequent words
+    std::cout << output;
+    outFile << output;
+
     WordFrequencyNode* leastFrequentStart = head;
     int totalCount = 0;
 
@@ -374,7 +373,7 @@ void WordFrequencyList::displayTop5Frequencies(std::ofstream& outFile, const std
         leastFrequentStart = leastFrequentStart->next;
     }
 
-    // Traverse to the last 5 nodes for least frequent
+    // Traverse to the last 5 nodes for least frequent words
     leastFrequentStart = head;
     int skipCount = totalCount - 5;
     while (skipCount > 0 && leastFrequentStart != nullptr) {
@@ -382,17 +381,16 @@ void WordFrequencyList::displayTop5Frequencies(std::ofstream& outFile, const std
         skipCount--;
     }
 
-    // Display top 5 least frequent words
-    outFile << "Top 5 least frequent " << type << " words:\n";
-    std::cout << "Top 5 least frequent " << type << " words:\n";
+    output = "Top 5 least frequent " + type + " words:\n";
     count = 0;
     while (leastFrequentStart != nullptr && count < 5) {
-        outFile << leastFrequentStart->word << " (" << leastFrequentStart->count << "), ";
-        std::cout << leastFrequentStart->word << " (" << leastFrequentStart->count << "), ";
+        output += leastFrequentStart->word + " (" + std::to_string(leastFrequentStart->count) + "), ";
         leastFrequentStart = leastFrequentStart->next;
         count++;
     }
-    outFile << "\n\n";
-    std::cout << "\n\n";
+    output += "\n\n";
+
+    std::cout << output;
+    outFile << output;
 }
 

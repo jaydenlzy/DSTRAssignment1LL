@@ -83,4 +83,4 @@ Negative Words (2): [downside, heck]
 Sentiment Score: 3.857143
 Evaluation: The review is accurate.
 
-Linear Search Time: 242 milliseconds.
+Linear Search Time: 432 milliseconds.

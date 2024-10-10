@@ -2,6 +2,27 @@ Total number of reviews: 12
 Total number of positive words used in reviews: 147
 Total number of negative words used in reviews: 45
 Positive Word Frequencies:
+nice: 16
+great: 16
+good: 11
+like: 8
+comfortable: 7
+best: 5
+excellent: 5
+better: 4
+friendly: 4
+easy: 3
+clean: 3
+free: 3
+wonderful: 3
+worked: 3
+helpful: 2
+happy: 2
+work: 2
+awesome: 2
+generous: 2
+positive: 2
+exceptional: 2
 advantage: 1
 correct: 1
 convenient: 1
@@ -44,31 +65,16 @@ liked: 1
 loved: 1
 nicest: 1
 pleasantly: 1
-helpful: 2
-happy: 2
-work: 2
-awesome: 2
-generous: 2
-positive: 2
-exceptional: 2
-easy: 3
-clean: 3
-free: 3
-wonderful: 3
-worked: 3
-friendly: 4
-better: 4
-best: 5
-excellent: 5
-comfortable: 7
-like: 8
-good: 11
-nice: 16
-great: 16
 
 ----------------------------------------
 
 Negative Word Frequencies:
+hard: 3
+disappointed: 2
+downside: 2
+problem: 2
+funny: 2
+issue: 2
 expensive: 1
 nonexistent: 1
 stiff: 1
@@ -101,21 +107,15 @@ negative: 1
 poor: 1
 terribly: 1
 heck: 1
-downside: 2
-problem: 2
-funny: 2
-issue: 2
-disappointed: 2
-hard: 3
 Top 5 most frequent positive words:
-advantage (1), correct (1), convenient (1), celebrate (1), cleaner (1), 
+nice (16), great (16), good (11), like (8), comfortable (7), 
 
 Top 5 least frequent positive words:
-comfortable (7), like (8), good (11), nice (16), great (16), 
+smart (1), liked (1), loved (1), nicest (1), pleasantly (1), 
 
 Top 5 most frequent negative words:
-expensive (1), nonexistent (1), stiff (1), loud (1), noisy (1), 
+hard (3), disappointed (2), downside (2), problem (2), funny (2), 
 
 Top 5 least frequent negative words:
-problem (2), funny (2), issue (2), disappointed (2), hard (3), 
+rail (1), negative (1), poor (1), terribly (1), heck (1), 
 
