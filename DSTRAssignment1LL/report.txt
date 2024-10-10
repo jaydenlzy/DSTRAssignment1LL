@@ -1,4 +1,4 @@
-Linear Search Time: 377950 milliseconds.
+Linear Search Time: 350827 milliseconds.
 Amount of user reviews matching sentiment review: 5407
 Amount of user reviews not matching sentiment review: 15084
 
@@ -6,7 +6,7 @@ Total number of reviews: 20491
 Total number of positive words used in reviews: 253398
 Total number of negative words used in reviews: 82326
 
-Total insertion sort time: 631 milliseconds.
+Total insertion sort time: 319 milliseconds.
 Insertion Sort - Top 5 Words (Positive & Negative):
 Top 5 most frequent positive words:
 great (21087), good (16972), nice (12399), clean (9359), like (8112), 
@@ -20,7 +20,7 @@ problem (2898), bad (2835), noise (2162), expensive (1921), hard (1788),
 Top 5 least frequent negative words:
 snare (1), pander (1), aggressiveness (1), invalid (1), evasive (1), 
 
-Total selection sort time: 651 milliseconds.
+Total selection sort time: 314 milliseconds.
 Top 5 most frequent positive words:
 great (21087), good (16972), nice (12399), clean (9359), like (8112), 
 

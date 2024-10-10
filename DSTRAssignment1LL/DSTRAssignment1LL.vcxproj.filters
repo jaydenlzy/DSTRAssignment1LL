@@ -54,10 +54,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sentimentcalculation.h">
+    <ClInclude Include="sentimentcalculation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reviewlist.h">
+    <ClInclude Include="reviewlist.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

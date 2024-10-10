@@ -1,5 +1,5 @@
-#ifndef REVIEWLIST_H
-#define REVIEWLIST_H
+#ifndef REVIEWLIST_HPP
+#define REVIEWLIST_HPP
 
 #include <string>
 #include <iostream>

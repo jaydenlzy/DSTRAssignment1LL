@@ -1,9 +1,9 @@
-#include "reviewlist.h"
+#include "reviewlist.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "SentimentCalculation.h"
+#include "SentimentCalculation.hpp"
 
 using namespace std;
 

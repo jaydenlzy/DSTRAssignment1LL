@@ -143,8 +143,8 @@
     <ClCompile Include="sentimentcalculation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="reviewlist.h" />
-    <ClInclude Include="sentimentcalculation.h" />
+    <ClInclude Include="reviewlist.hpp" />
+    <ClInclude Include="sentimentcalculation.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,8 +3,8 @@
 #include <sstream>
 #include <chrono>
 #include <thread>
-#include "reviewlist.h"
-#include "sentimentcalculation.h"  
+#include "reviewlist.hpp"
+#include "sentimentcalculation.hpp"  
 
 using namespace std;
 using namespace std::chrono;
@@ -14,7 +14,7 @@ void readReviewsFromCSV(string filename, ReviewList& reviewList) {
     ifstream file(filename);
     string line;
 
-    if (file.is_open()) {
+    if (file.is_open()) 
         // Skip the header line
         getline(file, line);
 

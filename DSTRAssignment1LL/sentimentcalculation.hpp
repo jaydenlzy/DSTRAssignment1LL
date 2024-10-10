@@ -1,5 +1,5 @@
-#ifndef SENTIMENTCALCULATION_H
-#define SENTIMENTCALCULATION_H
+#ifndef SENTIMENTCALCULATION_HPP
+#define SENTIMENTCALCULATION_HPP
 
 class SentimentCalculation {
 public:

@@ -1,4 +1,4 @@
-#include "SentimentCalculation.h"
+#include "SentimentCalculation.hpp"
 
 // Function to calculate the raw sentiment score (Positive count - Negative count)
 int SentimentCalculation::calculateRawSentiment(int positiveCount, int negativeCount) {
