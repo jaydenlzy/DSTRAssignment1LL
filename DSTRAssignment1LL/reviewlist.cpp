@@ -338,7 +338,7 @@ void WordFrequencyList::selectionSort() {
             nextNode = nextNode->next;
         }
 
-        // Swap the current node with the minNode
+        // Swap the data of current node and minNode
         if (minNode != current) {
             std::swap(current->word, minNode->word);
             std::swap(current->count, minNode->count);
@@ -348,4 +348,51 @@ void WordFrequencyList::selectionSort() {
     }
 }
 
+void WordFrequencyList::displayTop5Frequencies(std::ofstream& outFile, const std::string& type) {
+    WordFrequencyNode* temp = head;
+    int count = 0;
+
+    // Display top 5 most frequent words
+    outFile << "Top 5 most frequent " << type << " words:\n";
+    std::cout << "Top 5 most frequent " << type << " words:\n";
+    while (temp != nullptr && count < 5) {
+        outFile << temp->word << " (" << temp->count << "), ";
+        std::cout << temp->word << " (" << temp->count << "), ";
+        temp = temp->next;
+        count++;
+    }
+    outFile << "\n\n";
+    std::cout << "\n\n";
+
+    // Correct logic for least frequent words
+    WordFrequencyNode* leastFrequentStart = head;
+    int totalCount = 0;
+
+    // Count the total number of nodes
+    while (leastFrequentStart != nullptr) {
+        totalCount++;
+        leastFrequentStart = leastFrequentStart->next;
+    }
+
+    // Traverse to the last 5 nodes for least frequent
+    leastFrequentStart = head;
+    int skipCount = totalCount - 5;
+    while (skipCount > 0 && leastFrequentStart != nullptr) {
+        leastFrequentStart = leastFrequentStart->next;
+        skipCount--;
+    }
+
+    // Display top 5 least frequent words
+    outFile << "Top 5 least frequent " << type << " words:\n";
+    std::cout << "Top 5 least frequent " << type << " words:\n";
+    count = 0;
+    while (leastFrequentStart != nullptr && count < 5) {
+        outFile << leastFrequentStart->word << " (" << leastFrequentStart->count << "), ";
+        std::cout << leastFrequentStart->word << " (" << leastFrequentStart->count << "), ";
+        leastFrequentStart = leastFrequentStart->next;
+        count++;
+    }
+    outFile << "\n\n";
+    std::cout << "\n\n";
+}
 
