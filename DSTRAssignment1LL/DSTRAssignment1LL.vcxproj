@@ -129,7 +129,9 @@
   <ItemGroup>
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt" />
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt" />
+    <Text Include="insertion_sorted_word_frequencies.txt" />
     <Text Include="linear_search_results.txt" />
+    <Text Include="report.txt" />
     <Text Include="selection_sorted_word_frequencies.txt" />
   </ItemGroup>
   <ItemGroup>

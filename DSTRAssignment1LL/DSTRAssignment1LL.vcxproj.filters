@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Output Files">
+      <UniqueIdentifier>{45183037-298b-45cf-b2ea-bacce5cd89ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\negative-words.txt">
@@ -21,7 +24,18 @@
     <Text Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\positive-words.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="linear_search_results.txt" />
+    <Text Include="report.txt">
+      <Filter>Output Files</Filter>
+    </Text>
+    <Text Include="linear_search_results.txt">
+      <Filter>Output Files</Filter>
+    </Text>
+    <Text Include="insertion_sorted_word_frequencies.txt">
+      <Filter>Output Files</Filter>
+    </Text>
+    <Text Include="selection_sorted_word_frequencies.txt">
+      <Filter>Output Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Degree\sem 2\Data Structure\Assigment\tripadvisor_hotel_reviews.csv">

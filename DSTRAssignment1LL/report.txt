@@ -1,35 +1,35 @@
-Linear Search Time: 432 milliseconds.
-Amount of user reviews matching sentiment review: 4
-Amount of user reviews not matching sentiment review: 8
+Linear Search Time: 377950 milliseconds.
+Amount of user reviews matching sentiment review: 5407
+Amount of user reviews not matching sentiment review: 15084
 
-Total number of reviews: 12
-Total number of positive words used in reviews: 147
-Total number of negative words used in reviews: 45
+Total number of reviews: 20491
+Total number of positive words used in reviews: 253398
+Total number of negative words used in reviews: 82326
 
-Total insertion sort time: 11 milliseconds.
+Total insertion sort time: 631 milliseconds.
 Insertion Sort - Top 5 Words (Positive & Negative):
 Top 5 most frequent positive words:
-nice (16), great (16), good (11), like (8), comfortable (7), 
+great (21087), good (16972), nice (12399), clean (9359), like (8112), 
 
 Top 5 least frequent positive words:
-smart (1), liked (1), loved (1), nicest (1), pleasantly (1), 
+luckier (1), redemption (1), accommodative (1), inventive (1), uplift (1), 
 
 Top 5 most frequent negative words:
-hard (3), disappointed (2), downside (2), problem (2), funny (2), 
+problem (2898), bad (2835), noise (2162), expensive (1921), hard (1788), 
 
 Top 5 least frequent negative words:
-rail (1), negative (1), poor (1), terribly (1), heck (1), 
+snare (1), pander (1), aggressiveness (1), invalid (1), evasive (1), 
 
-Total selection sort time: 10 milliseconds.
+Total selection sort time: 651 milliseconds.
 Top 5 most frequent positive words:
-nice (16), great (16), good (11), like (8), comfortable (7), 
+great (21087), good (16972), nice (12399), clean (9359), like (8112), 
 
 Top 5 least frequent positive words:
-smart (1), liked (1), loved (1), nicest (1), pleasantly (1), 
+luckier (1), redemption (1), accommodative (1), inventive (1), uplift (1), 
 
 Top 5 most frequent negative words:
-hard (3), disappointed (2), downside (2), problem (2), funny (2), 
+problem (2898), bad (2835), noise (2162), expensive (1921), hard (1788), 
 
 Top 5 least frequent negative words:
-rail (1), negative (1), poor (1), terribly (1), heck (1), 
+snare (1), pander (1), aggressiveness (1), invalid (1), evasive (1), 
 
